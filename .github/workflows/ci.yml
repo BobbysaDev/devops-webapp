@@ -1,4 +1,4 @@
-name: CI Pipeline
+name: CI/CD Pipeline
 
 on:
   push:
@@ -14,3 +14,17 @@ jobs:
 
       - name: Build
         run: echo "Build successful"
+
+      - name: Slack Success Notification
+        if: success()
+        run: |
+          curl -X POST -H 'Content-type: application/json' \
+          --data '{"text":" Build Successful"}' \
+          ${{ secrets.SLACK_WEBHOOK }}
+
+      - name: Slack Failure Notification
+        if: failure()
+        run: |
+          curl -X POST -H 'Content-type: application/json' \
+          --data '{"text":" Build Failed"}' \
+          ${{ secrets.SLACK_WEBHOOK }}
