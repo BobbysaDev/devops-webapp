@@ -1,7 +1,4 @@
-flowchart LR
-    subgraph Local["Local Environment"]
-        Dev((Developer))
-    end
+
 
     subgraph VCS["Version Control"]
         Git[GitHub Repository]
